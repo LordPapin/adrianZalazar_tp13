@@ -1,26 +1,34 @@
 
-var prompt = require("prompt-sync")()
 
 
-function calculateBalances(inicial, depósitos, retiros) {
-    let saldoFinal = inicial + depósitos - retiros;
-    return saldoFinal;
+let operations = [500, 1000, -2000, 3000, -1000, 2000];
+function calculateBalances(operations) {
+    let totalDeposits = 0;
+    let totalWithdrawals = 0;
+    let currentBalance = 0;
+  
+    for (let operation of operations) {
+      if (operation > 0) {
+        totalDeposits += operation;
+      } else {
+        totalWithdrawals += Math.abs(operation);
+      }
+      currentBalance += operation;
+    }
+  
+    return {
+      totalDeposits,
+      totalWithdrawals,
+      currentBalance
+    };
 }
 
-
-let saldoInicial = 20000; // Saldo inicial
-let depósitos = 5000;      // Total de depósitos
-let retiros = 10000;       // Total de retiros
-let nombre = prompt("¿cual es tu nombre? ",null)
-let apellido = prompt("¿cual es tu apellido? ", null)
-let saldoFinal = calculateBalances(saldoInicial, depósitos, retiros);
-function bankBalance(nombre, apellido, saldoFinal ){
-    let user = nombre + " " + apellido;
-    return user
-    console.log("Estimad@ " + user)
-    console.log("el monto total de los depoósitos es de :$" + depósitos)
-    console.log("el monto total de los retiros es de :$" + retiros)
-    console.log("Por lo tanto, su saldo actual en la cuenta es de: $" + saldoFinal);
+function bankBalance(name, lastName, operations) {
+    let balances = calculateBalances(operations);
+    return `Estimad@ ${name} ${lastName}: El monto total de los depósitos es de: $${balances.totalDeposits}. El monto total de los retiros es de: $${balances.totalWithdrawals}. Por lo tanto, su saldo actual en la cuenta es de: $${balances.currentBalance}.`;
 }
 
-module.exports = bankBalance
+console.log(bankBalance("Gloria", "Medina", operations));
+console.log(bankBalance("Adrian", "Zalazar", [1000, -500, 2000, -1000]));
+console.log(bankBalance("María", "González", [5000, -2000, 3000, -1000]));
+
