@@ -32,3 +32,4 @@ console.log(bankBalance("Gloria", "Medina", operations));
 console.log(bankBalance("Adrian", "Zalazar", [1000, -500, 2000, -1000]));
 console.log(bankBalance("María", "González", [5000, -2000, 3000, -1000]));
 
+module.exports = bankBalance
